@@ -34,13 +34,15 @@ def change_black_ink(pdf_path: str, new_colour: Optional[tuple] = None):
     else:
         pdf_pages = convert_from_path(pdf_path)
 
+    saved_pages = []
     for i, page in enumerate(pdf_pages):
-        saved_pages = []
         file_name = f"page {i}.jpg"
         page.save(file_name, "JPEG")
         saved_pages.append(file_name)
+        print(file_name + " saved")
 
     for image in saved_pages:
+        print(image)
         img = Image.open(image).convert("RGB")
         pixdata = img.load()
 
@@ -54,8 +56,7 @@ def change_black_ink(pdf_path: str, new_colour: Optional[tuple] = None):
                 if sum([i < 60 for i in pixel_colour]) == 3:
                     pixdata[width, height] = rgb
 
-        img.save(file_name)
-        print(file_name + " saved")
+        img.save(image)
 
 
 if __name__ == "__main__":
@@ -74,4 +75,4 @@ if __name__ == "__main__":
         change_black_ink(args[1], new_colour)
     else:
         print("Error: Incorrect amount of paramters given \n"
-              "To Run program: \n$ python BlackInk2Colour pdf.file")
+              "To Run program: \n$ python BlackInk2Colour file.pdf")
