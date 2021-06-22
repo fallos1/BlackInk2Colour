@@ -16,7 +16,7 @@ with open("config.txt") as f:
             "Error: config.txt has been altered. Please redownload.")
 
 
-def change_black_ink(pdf_path: str, new_colour: Optional[tuple] = None):
+def change_black_ink(pdf_path: str, new_colour: Optional[tuple] = None, output_location: Optional[str] = "output//"):
     """Function that takes an pdf, seperates pdf into seperate jpg images
     and then changes all black pixels to a print friendly colour
 
@@ -47,7 +47,7 @@ def change_black_ink(pdf_path: str, new_colour: Optional[tuple] = None):
         print(file_name + " created")
 
     for image in saved_pages:
-        img = Image.open(image).convert("RGB")
+        img = Image.open("output\\" + image).convert("RGB")
         pixdata = img.load()
 
         img_width, img_height = img.size[0], img.size[1]
