@@ -16,7 +16,7 @@ with open("config.txt") as f:
             "Error: config.txt has been altered. Please redownload.")
 
 
-def change_black_ink(pdf_path: str, new_colour: Optional[tuple] = None, output_location: Optional[str] = "output//"):
+def change_black_ink(pdf_path: str, new_colour: Optional[tuple] = None, output_location: Optional[str] = "output\\"):
     """Function that takes an pdf, seperates pdf into seperate jpg images
     and then changes all black pixels to a print friendly colour
 
@@ -36,18 +36,18 @@ def change_black_ink(pdf_path: str, new_colour: Optional[tuple] = None, output_l
         pdf_pages = convert_from_path(pdf_path)
 
     # Create output folder if it doesn't exist
-    if not os.path.exists("output\\"):
-        os.mkdir("output\\")
+    if not os.path.exists(output_location):
+        os.mkdir(output_location)
 
     saved_pages = []
     for i, page in enumerate(pdf_pages):
         file_name = f"page {i}.jpg"
-        page.save("output\\" + file_name, "JPEG")
+        page.save(output_location + file_name, "JPEG")
         saved_pages.append(file_name)
         print(file_name + " created")
 
     for image in saved_pages:
-        img = Image.open("output\\" + image).convert("RGB")
+        img = Image.open(output_location + image).convert("RGB")
         pixdata = img.load()
 
         img_width, img_height = img.size[0], img.size[1]
@@ -60,7 +60,7 @@ def change_black_ink(pdf_path: str, new_colour: Optional[tuple] = None, output_l
                 if sum([i < 60 for i in pixel_colour]) == 3:
                     pixdata[width, height] = rgb
 
-        img.save("output\\" + image)
+        img.save(output_location + image)
         print(image + " converted.")
 
 

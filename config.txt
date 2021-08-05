@@ -1,4 +1,4 @@
 # IF WINDOWS PATH to poppler binary
 poppler_path = "C:\Users\Furat\Documents\Black Ink To Colour\poppler-21.03.0\Library\bin"
 # DEFAULT RGB Values
-default_colour = "66, 135, 245"
+default_colour = "120, 135, 245"
